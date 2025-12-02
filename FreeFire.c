@@ -16,16 +16,18 @@ int main() {
     int opcao;
 
     do {
-        printf("\n===== MOCHILA - NIVEL NOVATO =====\n");
+        printf("\n===== MOCHILA - NIVEL AVENTUREIRO =====\n");
         printf("1. Adicionar item\n");
         printf("2. Remover item\n");
         printf("3. Listar itens\n");
+        printf("4. Buscar item por nome\n");
         printf("0. Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
-        case 1:
+
+        case 1:  // Adicionar item
             if (total >= MAX_ITENS) {
                 printf("Mochila cheia!\n");
             } else {
@@ -39,11 +41,11 @@ int main() {
                 scanf("%d", &mochila[total].quantidade);
 
                 total++;
-                printf("Item adicionado!\n");
+                printf("Item adicionado com sucesso!\n");
             }
             break;
 
-        case 2: {
+        case 2: { // Remover item
             char nomeRemover[50];
             int encontrado = 0;
 
@@ -54,7 +56,6 @@ int main() {
                 if (strcmp(mochila[i].nome, nomeRemover) == 0) {
                     encontrado = 1;
 
-                    // Sobrescreve movendo todos uma posição para trás
                     for (int j = i; j < total - 1; j++) {
                         mochila[j] = mochila[j + 1];
                     }
@@ -67,10 +68,11 @@ int main() {
 
             if (!encontrado)
                 printf("Item nao encontrado.\n");
+
             break;
         }
 
-        case 3:
+        case 3: // Listar itens
             if (total == 0) {
                 printf("Mochila vazia!\n");
             } else {
@@ -83,6 +85,30 @@ int main() {
                 }
             }
             break;
+
+        case 4: { // Buscar item por nome (NOVO!)
+            char nomeBusca[50];
+            int encontrado = 0;
+
+            printf("Digite o nome do item a buscar: ");
+            scanf("%s", nomeBusca);
+
+            for (int i = 0; i < total; i++) {
+                if (strcmp(mochila[i].nome, nomeBusca) == 0) {
+                    encontrado = 1;
+                    printf("\n--- Item encontrado ---\n");
+                    printf("Nome: %s\n", mochila[i].nome);
+                    printf("Tipo: %s\n", mochila[i].tipo);
+                    printf("Quantidade: %d\n", mochila[i].quantidade);
+                    break;
+                }
+            }
+
+            if (!encontrado)
+                printf("Item nao encontrado.\n");
+
+            break;
+        }
 
         case 0:
             printf("Saindo...\n");
